@@ -18,6 +18,8 @@ public class Item : MonoBehaviour {
     public AudioClip m_DiassembleSound, m_CollectSound;
     private AudioSource m_AudioSource;
 
+    public GameObject m_GUI;
+
     void Awake()
     {
         m_AudioSource = GetComponent<AudioSource>();
@@ -77,7 +79,12 @@ public class Item : MonoBehaviour {
     void Diassemble()
     {
         m_AudioSource.PlayOneShot(m_DiassembleSound);
-        m_Player.AddWeaponToInventory(m_Weapon,100);
+
+        int l_AmmoInventory = Random.Range (10, 15);
+        m_Player.AddWeaponToInventory(m_Weapon, l_AmmoInventory);
+        m_GUI.GetComponent<GuiWeaponsController> ().UpdatePlayerWeapons();        
+        DestroyObject(this.gameObject);
+
         m_Caught = true;
         m_Timer = 0.0f;
     }

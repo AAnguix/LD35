@@ -70,6 +70,12 @@ public class Player : MonoBehaviour
         m_Inventory = new List<Slot>();
 	}
 
+    /*Weapons*/
+    public Slot GetCurrentWeapon()
+    {
+        return m_CurrentWeapon;
+    }
+
     public void AddWeaponToInventory(Weapon Weapon, int Ammunation)
     {
         Slot l_Slot = new Slot(Weapon, Ammunation);
@@ -135,7 +141,13 @@ public class Player : MonoBehaviour
 
     private void Attack()
     {
-        m_CurrentWeapon.m_Ammunation--;
+        if (m_CurrentWeapon.m_Ammunation > 0)
+        {
+            m_CurrentWeapon.m_Ammunation -= 1;
+            // m_AudioSource.PlayOneShot(m_CurrentWeapon.m_Weapon.m_Sound);
+            // m_Animator.SetInteger("state", m_CurrentWeapon.m_Weapon.m_AnimmationID);
+        }  
+
        // m_AudioSource.PlayOneShot(m_CurrentWeapon.m_Weapon.m_Sound);
        // m_Animator.SetInteger("state", m_CurrentWeapon.m_Weapon.m_AnimmationID);
     }
